@@ -1,2 +1,2 @@
-# php-library
-A collection of useful classes.
+# php-library-datetime
+A collection of useful datetime classes.
