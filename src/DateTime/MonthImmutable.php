@@ -2,6 +2,9 @@
 
 namespace Gearbox\DateTime;
 
+/**
+ * Represents a specific month of a year, e.g. July 2016
+ */
 class MonthImmutable
 {
     /** @var integer */
@@ -32,5 +35,22 @@ class MonthImmutable
         } else {
             throw new Exception('Cannot construct instance of '.__CLASS__.' with parameter "'.$monthString.'".');
         }
+    }
+    
+    
+    
+    /**
+     * Returns true if the given month represents the same month as this one.
+     * 
+     * @param MonthImmutable $monthToCompareWith
+     * @return boolean
+     */
+    public function equals(MonthImmutable $monthToCompareWith)
+    {
+        $sameMonthInYear = $monthToCompareWith->getMonthAsNumber() == $this->getMonthAsNumber();
+        $sameYear = $monthToCompareWith->getYearAsNumber() == $this->getYearAsNumber();
+        $isEqual = $sameMonthInYear && $sameYear;
+
+        return $isEqual;
     }
 }
