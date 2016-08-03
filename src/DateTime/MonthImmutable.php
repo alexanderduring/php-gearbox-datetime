@@ -17,6 +17,7 @@ class MonthImmutable
 
     /**
      * @param string $monthString Optional description of the month in the format 'YYYY-MM'.
+     * @throws Exception
      */
     public function __construct($monthString = null)
     {
