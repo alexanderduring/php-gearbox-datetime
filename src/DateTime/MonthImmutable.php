@@ -37,9 +37,74 @@ class MonthImmutable
             throw new Exception('Cannot construct instance of '.__CLASS__.' with parameter "'.$monthString.'".');
         }
     }
-    
-    
-    
+
+
+
+    /**
+     * @param MonthImmutable $monthToCompareWith
+     * @return boolean
+     */
+    public function isSameYear(MonthImmutable $monthToCompareWith)
+    {
+        $isSameYear = $this->getYearAsNumber() == $monthToCompareWith->getYearAsNumber();
+
+        return $isSameYear;
+    }
+
+
+
+    /**
+     * @param MonthImmutable $monthToCompareWith
+     * @return boolean
+     */
+    public function isLaterYear(MonthImmutable $monthToCompareWith)
+    {
+        $isLaterYear = $this->getYearAsNumber() > $monthToCompareWith->getYearAsNumber();
+
+        return $isLaterYear;
+    }
+
+
+
+    /**
+     * @param MonthImmutable $monthToCompareWith
+     * @return boolean
+     */
+    public function isSameMonthInYear(MonthImmutable $monthToCompareWith)
+    {
+        $isSameMonthInYear = $this->getMonthAsNumber() == $monthToCompareWith->getMonthAsNumber();
+
+        return $isSameMonthInYear;
+    }
+
+
+
+    /**
+     * @param MonthImmutable $monthToCompareWith
+     * @return boolean
+     */
+    public function isLaterMonthInYear(MonthImmutable $monthToCompareWith)
+    {
+        $isLaterMonthInYear = $this->getMonthAsNumber() > $monthToCompareWith->getMonthAsNumber();
+
+        return $isLaterMonthInYear;
+    }
+
+
+
+    /**
+     * @param MonthImmutable $monthToCompareWith
+     * @return boolean
+     */
+    public function isLaterMonthInSameYear(MonthImmutable $monthToCompareWith)
+    {
+        $isLaterMonthInSameYear = $this->isSameYear($monthToCompareWith) && $this->isLaterMonthInYear($monthToCompareWith);
+
+        return $isLaterMonthInSameYear;
+    }
+
+
+
     /**
      * Returns true if the given month represents the same month as this one.
      * 
@@ -48,10 +113,21 @@ class MonthImmutable
      */
     public function equals(MonthImmutable $monthToCompareWith)
     {
-        $sameMonthInYear = $monthToCompareWith->getMonthAsNumber() == $this->getMonthAsNumber();
-        $sameYear = $monthToCompareWith->getYearAsNumber() == $this->getYearAsNumber();
-        $isEqual = $sameMonthInYear && $sameYear;
+        $isEqual = $this->isSameMonthInYear($monthToCompareWith) && $this->isSameYear($monthToCompareWith);
 
         return $isEqual;
+    }
+
+
+
+    /**
+     * @param MonthImmutable $monthToCompareWith
+     * @return boolean
+     */
+    public function isLater(MonthImmutable $monthToCompareWith)
+    {
+        $isLater = $this->isLaterMonthInSameYear($monthToCompareWith) || $this->isLaterYear($monthToCompareWith);
+
+        return $isLater;
     }
 }
