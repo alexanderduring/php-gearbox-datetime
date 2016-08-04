@@ -70,7 +70,7 @@ class MonthImmutable
      * @param MonthImmutable $monthToCompareWith
      * @return boolean
      */
-    public function isSameMonthInYear(MonthImmutable $monthToCompareWith)
+    public function isSameMonthInTheYear(MonthImmutable $monthToCompareWith)
     {
         $isSameMonthInYear = $this->getMonthAsNumber() == $monthToCompareWith->getMonthAsNumber();
 
@@ -83,7 +83,7 @@ class MonthImmutable
      * @param MonthImmutable $monthToCompareWith
      * @return boolean
      */
-    public function isLaterMonthInYear(MonthImmutable $monthToCompareWith)
+    public function isLaterMonthInTheYear(MonthImmutable $monthToCompareWith)
     {
         $isLaterMonthInYear = $this->getMonthAsNumber() > $monthToCompareWith->getMonthAsNumber();
 
@@ -98,7 +98,7 @@ class MonthImmutable
      */
     public function isLaterMonthInSameYear(MonthImmutable $monthToCompareWith)
     {
-        $isLaterMonthInSameYear = $this->isSameYear($monthToCompareWith) && $this->isLaterMonthInYear($monthToCompareWith);
+        $isLaterMonthInSameYear = $this->isSameYear($monthToCompareWith) && $this->isLaterMonthInTheYear($monthToCompareWith);
 
         return $isLaterMonthInSameYear;
     }
@@ -113,7 +113,7 @@ class MonthImmutable
      */
     public function equals(MonthImmutable $monthToCompareWith)
     {
-        $isEqual = $this->isSameMonthInYear($monthToCompareWith) && $this->isSameYear($monthToCompareWith);
+        $isEqual = $this->isSameMonthInTheYear($monthToCompareWith) && $this->isSameYear($monthToCompareWith);
 
         return $isEqual;
     }
