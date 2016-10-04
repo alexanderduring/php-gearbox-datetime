@@ -130,4 +130,79 @@ class MonthImmutable
 
         return $isLater;
     }
+
+
+
+    /**
+     * @return integer Month as number
+     */
+    public function getMonthAsNumber()
+    {
+        return $this->month;
+    }
+
+
+
+    /**
+     * @return integer Year as four digit number
+     */
+    public function getYearAsNumber()
+    {
+        return $this->year;
+    }
+
+
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getBegin()
+    {
+        $start = new DateTimeImmutable($this->getYearMonthString().'-01 00:00:00');
+
+        return $start;
+    }
+
+
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getEnd()
+    {
+        $end = $this->getBegin()->addMonths(1)->addDays(-1)->setTime(23, 59, 59);
+
+        return $end;
+    }
+
+
+
+    /**
+     * @return DateTimeImmutable
+     */
+    public function getFirstDay()
+    {
+        $firstDayOfMonth = new DateTimeImmutable($this->getYearMonthString().'-01 00:00:00');
+
+        return $firstDayOfMonth;
+    }
+
+
+
+    /**
+     * @return string E.g. "2016-08"
+     */
+    public function getYearMonthString()
+    {
+        $yearMonthString = $this->year.'-'.str_pad($this->month, 2, '0', STR_PAD_LEFT);
+
+        return $yearMonthString;
+    }
+
+
+
+    public function __toString()
+    {
+        return $this->getFirstDay()->format('M Y');
+    }
 }
