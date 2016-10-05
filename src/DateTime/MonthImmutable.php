@@ -26,15 +26,29 @@ class MonthImmutable
             $monthString = date('Y-m');
         }
 
-        // Split string at '-' into $year and $month
-        list($year, $month) = explode('-', $monthString);
+        try {
+            // Split string at '-' into $year and $month
+            if (strpos('-', $monthString) === false) {
+                throw new Exception('The month string does not contain a hyphen.');
+            } else {
+                list($year, $month) = explode('-', $monthString);
+            }
 
-        // Make sure that strings have correct length and contain only digits
-        if (strlen($year) == 4 && ctype_digit($year) && strlen($month) == 2 && ctype_digit($month)) {
-            $this->month = (int) $month;
-            $this->year = (int) $year;
-        } else {
-            throw new Exception('Cannot construct instance of '.__CLASS__.' with parameter "'.$monthString.'".');
+            // Make sure that strings have correct length and contain only digits
+            if (strlen($year) == 4 && ctype_digit($year)) {
+                $this->year = (int) $year;
+            } else {
+                throw new Exception('The year must be a four digit number.');
+            }
+
+            if (strlen($month) == 2 && ctype_digit($month)) {
+                $this->month = (int) $month;
+            } else {
+                throw new Exception('The month must be a two digit number.');
+            }
+
+        } catch (Exception $exception) {
+            throw new Exception('Cannot construct instance of'.__CLASS__.' with parameter "'.$monthString.'". Reason: ' . $exception->getMessage());
         }
     }
 
