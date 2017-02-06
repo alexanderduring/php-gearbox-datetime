@@ -28,7 +28,7 @@ class MonthImmutable
 
         try {
             // Split string at '-' into $year and $month
-            if (strpos('-', $monthString) === false) {
+            if (strpos($monthString, '-') === false) {
                 throw new Exception('The month string does not contain a hyphen.');
             } else {
                 list($year, $month) = explode('-', $monthString);
@@ -203,12 +203,30 @@ class MonthImmutable
 
 
 
+    public function getNextMonth()
+    {
+        $nextMonth = new MonthImmutable($this->getYearMonthStringRelativeToThisMonth(1));
+
+        return $nextMonth;
+    }
+
+
+
+    public function getPreviousMonth()
+    {
+        $nextMonth = new MonthImmutable($this->getYearMonthStringRelativeToThisMonth(-1));
+
+        return $nextMonth;
+    }
+
+
+
     /**
      * @return string E.g. "2016-08"
      */
     public function getYearMonthString()
     {
-        $yearMonthString = $this->year.'-'.str_pad($this->month, 2, '0', STR_PAD_LEFT);
+        $yearMonthString = $this->buildYearMonthString($this->year, $this->month);
 
         return $yearMonthString;
     }
@@ -218,5 +236,44 @@ class MonthImmutable
     public function __toString()
     {
         return $this->getFirstDay()->format('M Y');
+    }
+
+
+
+    private function getYearMonthStringRelativeToThisMonth($differenceInMonths)
+    {
+//        if ($differenceInMonths > 0) {
+            $differentYear = $this->year;
+            $differentMonth = $this->month + $differenceInMonths;
+            if ($differentMonth > 12) {
+                $differentYear += floor($differentMonth / 12);
+                $differentMonth = $differentMonth % 12;
+            }
+
+            if ($differentMonth < 1) {
+                $differentMonth--;
+                $differentYear -= ceil($differentMonth / 12);
+                $differentMonth = $differentMonth % 12;
+            }
+//        }
+
+//        if ($differenceInMonths < 0) {
+//            $years = ceil($differenceInMonths / 12);
+//            $months = $differenceInMonths % 12;
+//
+//        }
+
+        $yearMonthString = $this->buildYearMonthString($differentYear, $differentMonth);
+
+        return $yearMonthString;
+    }
+
+
+
+    private function buildYearMonthString($year, $month)
+    {
+        $yearMonthString = $year.'-'.str_pad($month, 2, '0', STR_PAD_LEFT);
+
+        return $yearMonthString;
     }
 }
