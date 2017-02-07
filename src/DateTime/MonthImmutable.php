@@ -205,7 +205,7 @@ class MonthImmutable
 
     public function getNextMonth()
     {
-        $nextMonth = new MonthImmutable($this->getYearMonthStringRelativeToThisMonth(1));
+        $nextMonth = $this->addMonths(1);
 
         return $nextMonth;
     }
@@ -214,9 +214,27 @@ class MonthImmutable
 
     public function getPreviousMonth()
     {
-        $nextMonth = new MonthImmutable($this->getYearMonthStringRelativeToThisMonth(-1));
+        $nextMonth = $this->subMonths(1);
 
         return $nextMonth;
+    }
+
+
+
+    public function addMonths($diffInMonths)
+    {
+        $newMonth = new MonthImmutable($this->getYearMonthStringRelativeToThisMonth($diffInMonths));
+
+        return $newMonth;
+    }
+
+
+
+    public function subMonths($diffInMonths)
+    {
+        $newMonth = $this->addMonths(-$diffInMonths);
+
+        return $newMonth;
     }
 
 
@@ -240,30 +258,14 @@ class MonthImmutable
 
 
 
-    private function getYearMonthStringRelativeToThisMonth($differenceInMonths)
+    private function getYearMonthStringRelativeToThisMonth($diffInMonths)
     {
-//        if ($differenceInMonths > 0) {
-            $differentYear = $this->year;
-            $differentMonth = $this->month + $differenceInMonths;
-            if ($differentMonth > 12) {
-                $differentYear += floor($differentMonth / 12);
-                $differentMonth = $differentMonth % 12;
-            }
+        $month = $this->month + $diffInMonths;
+        $diffYears = floor(($month - 1) / 12);
+        $year = $this->year + $diffYears;
+        $month = $month - ($diffYears * 12);
 
-            if ($differentMonth < 1) {
-                $differentMonth--;
-                $differentYear -= ceil($differentMonth / 12);
-                $differentMonth = $differentMonth % 12;
-            }
-//        }
-
-//        if ($differenceInMonths < 0) {
-//            $years = ceil($differenceInMonths / 12);
-//            $months = $differenceInMonths % 12;
-//
-//        }
-
-        $yearMonthString = $this->buildYearMonthString($differentYear, $differentMonth);
+        $yearMonthString = $this->buildYearMonthString($year, $month);
 
         return $yearMonthString;
     }
