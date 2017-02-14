@@ -33,7 +33,7 @@ class DateTimeImmutable implements DateTimeInterface
             $this->phpDateTime = new PhpDateTime($dateString);
         }
         catch (PhpException $exception) {
-            // Suspect it it a unixtime that could not be parsed.
+            // Suspect it is a unixtime that could not be parsed.
             $this->phpDateTime = new PhpDateTime();
             $this->phpDateTime->setTimestamp($dateString);
         }
