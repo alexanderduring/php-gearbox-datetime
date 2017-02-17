@@ -68,9 +68,10 @@ interface DateTimeInterface
     public function isEarlierOrEquals(DateTimeInterface $dateTimeToCompareWith);
 
     /**
-     * @return boolean
+     * @param DateTimeInterface $dateTimeToCompareWith
+     * @return bool
      */
-    public function isSameMonth();
+    public function isSameMonth(DateTimeInterface $dateTimeToCompareWith);
 
     /**
      * @return boolean

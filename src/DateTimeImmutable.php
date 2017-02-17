@@ -195,12 +195,12 @@ class DateTimeImmutable implements DateTimeInterface
 
 
     /**
-     * @param \Gearbox\DateTime\DateTimeInterface $dateToCompareWith
+     * @param \Gearbox\DateTime\DateTimeInterface $dateTimeToCompareWith
      * @return boolean
      */
-    public function isSameMonth(DateTimeInterface $dateToCompareWith)
+    public function isSameMonth(DateTimeInterface $dateTimeToCompareWith)
     {
-        $sameMonth = $this->getMonthAsNumber() == $dateToCompareWith->getMonthAsNumber() && $this->getYearAsNumber() == $dateToCompareWith->getYearAsNumber();
+        $sameMonth = $this->getMonthAsNumber() == $dateTimeToCompareWith->getMonthAsNumber() && $this->getYearAsNumber() == $dateTimeToCompareWith->getYearAsNumber();
 
         return $sameMonth;
     }
