@@ -40,7 +40,7 @@ class DateImmutable
 
     public function isSameMonth(DateImmutable $date): bool
     {
-        return $date->getMontAsNumber() == $this->getMontAsNumber();
+        return $date->getMonthAsNumber() == $this->getMonthAsNumber();
     }
 
 
