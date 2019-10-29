@@ -3,6 +3,7 @@
 namespace Gearbox\DateTime;
 
 use DateTimeImmutable as PhpDateTimeImmutable;
+use DateTimeZone;
 
 class DateImmutable
 {
