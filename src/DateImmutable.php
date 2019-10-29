@@ -1,6 +1,6 @@
 <?php
 
-namespace Inhouse\DateTime;
+namespace Gearbox\DateTime;
 
 use DateTimeImmutable as PhpDateTimeImmutable;
 
