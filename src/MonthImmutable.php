@@ -221,11 +221,9 @@ class MonthImmutable
 
 
 
-    public function addMonths($diffInMonths)
+    public function addMonths(int $months): MonthImmutable
     {
-        $newMonth = new MonthImmutable($this->getYearMonthStringRelativeToThisMonth($diffInMonths));
-
-        return $newMonth;
+        return $this->getBegin()->addMonths($months)->getMonth();
     }
 
 
@@ -254,20 +252,6 @@ class MonthImmutable
     public function __toString()
     {
         return $this->getFirstDay()->format('M Y');
-    }
-
-
-
-    private function getYearMonthStringRelativeToThisMonth($diffInMonths)
-    {
-        $month = $this->month + $diffInMonths;
-        $diffYears = floor(($month - 1) / 12);
-        $year = $this->year + $diffYears;
-        $month = $month - ($diffYears * 12);
-
-        $yearMonthString = $this->buildYearMonthString($year, $month);
-
-        return $yearMonthString;
     }
 
 
